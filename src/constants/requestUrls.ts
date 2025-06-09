@@ -1,0 +1,1 @@
+export const REQUEST_FAST2SMS_OTP = process.env.FAST2SMS_BASE_URL + "/dev/bulkV2"
