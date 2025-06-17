@@ -34,7 +34,8 @@ export const UserController = {
             nuxCompletionTimeStamp: new Date().getTime(),
             nuxStatus: getNuxStatus(),
           },
-        }
+        },
+        { new: true }
       );
 
       console.log("user: ", user);
@@ -96,7 +97,7 @@ export const UserController = {
     });
 
     if (isEmpty(user)) {
-      return res.status(400).send({
+      return res.status(404).send({
         success: false,
         message: "User not found",
       });

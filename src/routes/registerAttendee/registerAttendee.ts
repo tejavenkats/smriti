@@ -1,14 +1,14 @@
 import {
   AttendeeModel,
   AttendeeRequestParams,
-  AttendeeSchema,
+  Attendee,
 } from "../../db/models/Attendee";
 import { v4 as uuidv4 } from "uuid";
 
 export const registerAttendee = async (
   attendeeDetails: AttendeeRequestParams
 ) => {
-  const attendeeDataWithId: AttendeeSchema = {
+  const attendeeDataWithId: Attendee = {
     ...attendeeDetails,
     attendeeId: uuidv4(),
   };

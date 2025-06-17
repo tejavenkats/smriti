@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from "@typegoose/typegoose";
 
-export class User {
+export class UserDetails {
   @prop({ required: true })
   public userId: string;
 
@@ -22,7 +22,7 @@ export enum UserNuxStatus {
   COMPLETED = "COMPLETED",
 }
 
-export class UserSchema extends User {
+export class User extends UserDetails {
   @prop()
   public mediaUploads?: string[];
 
@@ -33,4 +33,4 @@ export class UserSchema extends User {
   public nuxCompletionTimeStamp?: Date;
 }
 
-export const UserModel = getModelForClass(UserSchema);
+export const UserModel = getModelForClass(User);

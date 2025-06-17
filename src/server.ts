@@ -20,10 +20,12 @@ app.use(OtpController.requestOtp);
 app.use(OtpController.verifyOtp);
 app.use(UserController.getUserNuxStatus);
 app.use(UserController.updateUserNuxStatus);
+app.use(UserController.getUserByPhone);
 app.use(MediaController.getSignedUrl);
 app.use(MediaController.updateUserAssets);
-app.use(MediaController.getUserAssetSignedUrl);
+app.use(MediaController.getAssetDownloadUrl);
 app.use(EventController.getSignedUrlForCoverImage);
+app.use(EventController.getCoverImageDownloadUrl);
 app.use(EventController.createEvent);
 app.listen(port, () => {
   console.log(`Smriti running at http://localhost:${port}`);

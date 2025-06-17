@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
-import { OtpModel, OtpSchema } from "../../db/models/Otp";
-import { User, UserModel } from "../../db/models/User";
+import { OtpModel, Otp } from "../../db/models/Otp";
+import { UserModel } from "../../db/models/User";
 import { v4 as uuidv4 } from "uuid";
 import {
   generateAccessToken,
@@ -20,7 +20,7 @@ export const verifyOtp = async (
     requestId: requestId,
   });
 
-  const matchingOtpRow: OtpSchema | null = await OtpModel.findOne({
+  const matchingOtpRow: Otp | null = await OtpModel.findOne({
     phoneNumber: phone,
     countryCode: countryCode,
     otp: otp,

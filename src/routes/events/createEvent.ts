@@ -1,8 +1,4 @@
-import {
-  EventSchema,
-  EventModel,
-  EventRequestParams,
-} from "../../db/models/Event";
+import { Event, EventModel, EventRequestParams } from "../../db/models/Event";
 import { v4 as uuidv4 } from "uuid";
 import { generateQrCode, getImageBufferFromBase64 } from "../../utils/qrUtils";
 import {
@@ -24,16 +20,25 @@ export const createEvent = async (eventDetails: EventRequestParams) => {
   const eventQrAssetKey = getEventQrCodeAssetKey(eventId);
   const signedUrl = await getr2SignedUrl("events", eventQrAssetKey);
 
+  console.log("Signed URL: ", signedUrl);
+
   await putRequest(signedUrl, qrImageBuffer, {
     "Content-Type": "image/png",
     "Content-Length": qrImageBuffer.length,
   });
 
-  const eventData: EventSchema = {
+  console.log("eventData model: ", eventDetails);
+
+  const eventData: Event = {
     ...eventDetails,
     eventId: eventId,
     qrCodeImageKey: eventQrAssetKey,
+    createdOn: new Date(),
+    updatedOn: new Date(),
+    deletedOn: null,
   };
+
+  console.log("eventData model: ", eventData);
 
   const event = new EventModel({ ...eventData });
   return await event.save();

@@ -27,9 +27,9 @@ export class AttendeeRequestParams {
   public location?: string;
 }
 
-export class AttendeeSchema extends AttendeeRequestParams {
+export class Attendee extends AttendeeRequestParams {
   @prop({ required: true })
   attendeeId: string;
 }
 
-export const AttendeeModel = getModelForClass(AttendeeSchema);
+export const AttendeeModel = getModelForClass(Attendee);

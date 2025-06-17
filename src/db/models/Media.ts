@@ -21,9 +21,9 @@ export class MediaRequestParams {
   location?: any;
 }
 
-export class MediaSchema {
+export class Media {
   @prop({ required: true })
   mediaId: string;
 }
 
-export const MediaModel = getModelForClass(MediaSchema);
+export const MediaModel = getModelForClass(Media);

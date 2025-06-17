@@ -1,6 +1,5 @@
 import {
   GetObjectCommand,
-  PutObjectAclCommandInput,
   PutObjectCommand,
   PutObjectCommandInput,
   S3Client,
@@ -21,16 +20,16 @@ export const getr2SignedUrl = async (
   bucketName: string,
   fileName: string,
   action: "put" | "get" = "put",
-  expiry: number = 3600,
+  expiry: number = 10 * 60 * 1000, //10 minutes
   contentType?: string
 ) => {
   const params: PutObjectCommandInput = {
     Bucket: bucketName,
     Key: fileName,
   };
-  if (contentType) {
-    params.ContentType = contentType;
-  }
+  // if (contentType) {
+  //   params.ContentType = contentType;
+  // }
   const putObjectCommand = new PutObjectCommand(params);
   const getObjectCommand = new GetObjectCommand({
     Bucket: bucketName,
@@ -50,7 +49,6 @@ export const getEventQrCodeAssetKey = (eventId: string) => {
   return "event-" + eventId + ".png";
 };
 
-export const getUserMediaAssetKey = (userId: string) => {
-  const id = uuidv4();
-  return `${userId}-${id}`;
+export const getUserMediaAssetKey = (userId: string, extension?: string) => {
+  return `cover-image-${userId}.${extension || "png"}`;
 };

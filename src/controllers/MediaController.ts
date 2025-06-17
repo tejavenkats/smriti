@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash";
-import { User, UserModel } from "../db/models/User";
+import { UserModel } from "../db/models/User";
 import { expressRouter } from "../expressApp";
 import { getUserMediaAssetKey, getr2SignedUrl } from "../utils/fileUploadUtils";
 
@@ -97,6 +97,38 @@ export const MediaController = {
 
       const signedUrl = await getr2SignedUrl(
         process.env.R2_USER_MEDIA_BUCKET as string,
+        assetKey as string,
+        "get"
+      );
+
+      if (!signedUrl) {
+        return res.status(500).send({
+          success: false,
+          message: "Couldn't generate signed URL",
+        });
+      }
+
+      res.status(200).send({
+        success: true,
+        url: signedUrl,
+      });
+    }
+  ),
+
+  getAssetDownloadUrl: expressRouter.get(
+    "/get-asset-download-url",
+    async (req, res) => {
+      const { assetKey, bucketName } = req.query;
+
+      if (!assetKey || !bucketName) {
+        return res.status(400).send({
+          success: false,
+          message: "assetKey and bucketName are required",
+        });
+      }
+
+      const signedUrl = await getr2SignedUrl(
+        bucketName as string,
         assetKey as string,
         "get"
       );

@@ -1,5 +1,17 @@
 import { getModelForClass, prop } from "@typegoose/typegoose";
-import { UserSchema } from "./User";
+import { User } from "./User";
+
+const x = {
+  date: 1750002758000,
+  description: "Shadi hogi",
+  image: "cover-image-5b73b8fd-1269-4fd4-80b0-5c042cbbf439",
+  location: "Hyderabad ",
+  name: "Teja’s wedding",
+  occasion: "Wedding",
+  time: "05:20 PM - 09:20 PM",
+  totalGuests: 100,
+  userId: "5b73b8fd-1269-4fd4-80b0-5c042cbbf439",
+};
 
 export class EventRequestParams {
   @prop({ required: true })
@@ -33,7 +45,7 @@ export class EventRequestParams {
   public metadata?: any;
 }
 
-export class EventSchema extends EventRequestParams {
+export class Event extends EventRequestParams {
   @prop({ required: true })
   public eventId: string;
 
@@ -41,7 +53,16 @@ export class EventSchema extends EventRequestParams {
   public qrCodeImageKey: string;
 
   @prop()
-  public attendees?: UserSchema[];
+  public attendees?: User[];
+
+  @prop()
+  public createdOn: Date;
+
+  @prop()
+  public updatedOn: Date;
+
+  @prop()
+  public deletedOn?: Date | null;
 }
 
-export const EventModel = getModelForClass(EventSchema);
+export const EventModel = getModelForClass(Event);
